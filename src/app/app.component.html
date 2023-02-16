@@ -1,0 +1,141 @@
+<!-- main app container -->
+<div class="card m-3">
+  <h5 class="card-header">Employee survey</h5>
+  <div class="card-body" *ngIf="!employeeResponse">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="form-row">
+          <div class="form-group col-5">
+            <label>First Name</label>
+            <input
+              type="text"
+              formControlName="firstName"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group col-5">
+            <label>Last Name</label>
+            <input
+              type="text"
+              formControlName="lastName"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="form-row col-12 mg-10">
+          <div class="form-group">
+            <label>Do you feel connected to your coworkers?</label>
+            <div class="custom-control custom-radio">
+              <input
+                id="yes"
+                type="radio"
+                class="custom-control-input"
+                value="yes"
+                name="workCulture"
+                formControlName="workCulture"
+              />
+              <label class="custom-control-label" for="yes">Yes</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input
+                id="no"
+                type="radio"
+                class="custom-control-input"
+                value="no"
+                name="workCulture"
+                formControlName="workCulture"
+              />
+              <label class="custom-control-label" for="no">No</label>
+            </div>
+          </div>
+          <div class="form-group col-12">
+            <label>Are you happy with the management?</label>
+            <div class="dropdown">
+              <select formControlName="happyWithManagement">
+                <option *ngFor="let option of reactions" [value]="option.value">
+                  {{ option?.displayName }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-12">
+            <label>How happy are you at work?</label>
+            <div class="dropdown">
+              <select formControlName="happyAtWork">
+                <option *ngFor="let option of reactions" [value]="option.value">
+                  {{ option?.displayName }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group col-12">
+            <label>Please rate your work experince(1-5)?</label>
+            <div class="slidecontainer">
+              <input
+                formControlName="rateWorkExperience"
+                type="range"
+                min="0"
+                max="5"
+                value="0"
+                class="slider"
+                id="rande"
+              />
+            </div>
+          </div>
+          <div class="form-group col-12">
+            <label
+              >When is the most happy/sad day in working days and reason?</label
+            >
+            <div>
+              <textarea
+                formControlName="happyOrSadDay"
+                id="textarea"
+                rows="5"
+                cols="50"
+              >
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row col-12 mg-10">
+          <button class="btn btn-primary mr-1" [disabled]="!registerForm.valid">
+            Submit
+          </button>
+          <button class="btn btn-secondary" type="reset" (click)="onReset()">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="employeeResponse">
+    <div class="row col-12 mg-10">
+      <div>Name:</div>
+      <div>{{ employeeResponse.firstName + employeeResponse.lastName }}</div>
+    </div>
+    <div class="row col-12 mg-10">
+      <div>Do you feel connected to your coworkers?</div>
+      <div>{{ employeeResponse.workCulture }}</div>
+    </div>
+    <div class="row col-12 mg-10">
+      <div>Are you happy with the management?</div>
+      <div>{{ employeeResponse.happyWithManagement }}</div>
+    </div>
+    <div class="row col-12 mg-10">
+      <div>How happy are you at work?</div>
+      <div>{{ employeeResponse.happyAtWork }}</div>
+    </div>
+    <div class="row col-12 mg-10">
+      <div>Please rate your work experince(1-5)</div>
+      <div>{{ employeeResponse.rateWorkExperience }}</div>
+    </div>
+    <div class="row col-12 mg-10">
+      <div>When is the most happy/sad day in working days and reason?</div>
+      <div>{{ employeeResponse.happyOrSadDay }}</div>
+    </div>
+    <button class="btn btn-primary mr-10" (click)="goBack()">Back</button>
+  </div>
+</div>
+
+<!-- credits -->
